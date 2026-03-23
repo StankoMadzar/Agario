@@ -1,14 +1,21 @@
-#include <iostream>
-#include <vector>
-#include <ctime>
-#include <sstream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Network.hpp>
-#include <iostream>
+#include "Game.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	// Initialize random seed
+	srand(static_cast<unsigned>(time(0)));
+
+	// Initialize game object
+	Game game;
+
+	// Game Loop
+	while (game.running())
+	{
+		game.update();
+		game.render();
+	}
+
+
+
+	return 0;
 }
