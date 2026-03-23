@@ -10,6 +10,7 @@ void Game::initWindow()
 {
 	videoMode = sf::VideoMode(800, 600);
 	window = new sf::RenderWindow(videoMode, "Agario", sf::Style::Close | sf::Style::Titlebar);
+	window->setFramerateLimit(60);
 }
 
 // Constructors and Destructors
@@ -49,12 +50,14 @@ void Game::pollEvents()
 void Game::update()
 {
 	pollEvents();
+	player.update(window);
 }
 
 void Game::render()
 {
 	window->clear();
 	// Render
+	player.render(window);
 	window->display();
 }
 
