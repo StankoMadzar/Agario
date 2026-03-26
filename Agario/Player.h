@@ -19,7 +19,8 @@ public:
 	~Player();
 
 	void updateInput();
-	void update(sf::RenderTarget* target);
+	void updateWindowBoundsCollision(const sf::RenderTarget* target);
+	void update(const sf::RenderTarget* target);
 	void render(sf::RenderTarget* target);
 };
 

@@ -4,6 +4,9 @@ void Game::initVariables()
 {
 	window = nullptr;
 	endGame = false;
+	spawnTimerMax = 10.f;
+	spawnTimer = spawnTimerMax;
+	maxOrbs = 10;
 }
 
 void Game::initWindow()
@@ -47,9 +50,24 @@ void Game::pollEvents()
 	}
 }
 
+void Game::spawnOrbs()
+{
+	if (spawnTimer < spawnTimerMax)
+		spawnTimer += 4.f;
+	else
+	{
+		if (orbsVector.size() <= maxOrbs)
+		{
+			orbsVector.push_back(Orb(window));
+			spawnTimer = 0.f;
+		}
+	}
+}
+
 void Game::update()
 {
 	pollEvents();
+	spawnOrbs();
 	player.update(window);
 }
 
@@ -58,6 +76,12 @@ void Game::render()
 	window->clear();
 	// Render
 	player.render(window);
+
+	for (auto& orb : orbsVector)
+	{
+		orb.render(window);
+	}
+
 	window->display();
 }
 

@@ -8,6 +8,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Network.hpp>
 #include "Player.h"
+#include "Orb.h"
 
 class Game
 {
@@ -18,6 +19,11 @@ private:
 	sf::Event sfmlEvent;
 
 	Player player;
+
+	std::vector<Orb> orbsVector;
+	float spawnTimerMax;
+	float spawnTimer;
+	int maxOrbs;
 
 	void initVariables();
 	void initWindow();
@@ -34,6 +40,7 @@ public:
 	// Functions
 	const bool running() const;
 	void pollEvents();
+	void spawnOrbs();
 	void update();
 	void render();
 };

@@ -133,10 +133,12 @@
   <ItemGroup>
     <ClCompile Include="Agario.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Orb.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Orb.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
