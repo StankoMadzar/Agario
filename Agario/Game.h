@@ -23,6 +23,7 @@ private:
 
 	sf::Font font;
 	sf::Text guiText;
+	sf::Text endGameText;
 
 	std::vector<Orb> orbsVector;
 	float spawnTimerMax;
@@ -40,6 +41,7 @@ public:
 	~Game();
 
 	// Accessors
+	const bool getEndGame() const;
 
 	// Modifiers
 
@@ -47,6 +49,8 @@ public:
 	const bool running() const;
 	void pollEvents();
 	void spawnOrbs();
+	const int randomizeOrbType();
+	void updatePlayer();
 	void updateCollisions();
 	void updateGUI();
 	void update();
