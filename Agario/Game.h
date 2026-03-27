@@ -19,6 +19,10 @@ private:
 	sf::Event sfmlEvent;
 
 	Player player;
+	int points;
+
+	sf::Font font;
+	sf::Text guiText;
 
 	std::vector<Orb> orbsVector;
 	float spawnTimerMax;
@@ -27,6 +31,8 @@ private:
 
 	void initVariables();
 	void initWindow();
+	void initFont();
+	void initText();
 
 public:
 	// Constructors and Destructors
@@ -41,7 +47,10 @@ public:
 	const bool running() const;
 	void pollEvents();
 	void spawnOrbs();
+	void updateCollisions();
+	void updateGUI();
 	void update();
+	void renderGUI(sf::RenderTarget* target);
 	void render();
 };
 

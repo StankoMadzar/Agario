@@ -2,7 +2,9 @@
 
 void Player::initVariables()
 {
-	movementSpeed = 5.0f;
+	movementSpeed = 4.0f;
+	hpMax = 12;
+	hp = hpMax;
 }
 
 void Player::initShape()
@@ -27,6 +29,39 @@ Player::Player(float x, float y)
 Player::~Player()
 {
 
+}
+
+const sf::RectangleShape& Player::getShape() const
+{
+	return shape;
+}
+
+const int& Player::getHp() const
+{
+	return hp;
+}
+
+const int& Player::getHpMax() const
+{
+	return hpMax;
+}
+
+void Player::takeDamage(const int damage)
+{
+	if (hp > 0)
+		hp -= damage;
+
+	if (hp < 0)
+		hp = 0;
+}
+
+void Player::gainHealth(const int health)
+{
+	if (hp < hpMax)
+		hp += health;
+
+	if (hp > hpMax)
+		hp = hpMax;
 }
 
 void Player::updateInput()
