@@ -29,6 +29,11 @@ void Game::initText()
 {
 	guiText.setFont(font);
 	guiText.setCharacterSize(24);
+	endGameText.setFont(font);
+	endGameText.setCharacterSize(60);
+	endGameText.setFillColor(sf::Color::Red);
+	endGameText.setPosition(200, 300);
+	endGameText.setString("GAME OVER");
 }
 
 // Constructors and Destructors
@@ -43,6 +48,11 @@ Game::Game()
 Game::~Game()
 {
 	delete window;
+}
+
+const bool Game::getEndGame() const
+{
+	return endGame;
 }
 
 const bool Game::running() const
@@ -75,10 +85,30 @@ void Game::spawnOrbs()
 	{
 		if (orbsVector.size() <= maxOrbs)
 		{
-			orbsVector.push_back(Orb(window, rand()%OrbTypes::NROFTYPES));
+			orbsVector.push_back(Orb(window, randomizeOrbType()));
 			spawnTimer = 0.f;
 		}
 	}
+}
+
+const int Game::randomizeOrbType()
+{
+	int type = OrbTypes::DEFAULT;
+	int randValue = rand() % 100 + 1;
+
+	if (randValue > 70 && randValue <= 85)
+		type = OrbTypes::DAMAGING;
+	else if (randValue > 85 && randValue <= 100)
+		type = OrbTypes::HEALING;
+
+	return type;
+}
+
+void Game::updatePlayer()
+{
+	player.update(window);
+	if (player.getHp() <= 0)
+		endGame = true;
 }
 
 void Game::updateCollisions()
@@ -114,10 +144,13 @@ void Game::updateGUI()
 void Game::update()
 {
 	pollEvents();
-	spawnOrbs();
-	player.update(window);
-	updateCollisions();
-	updateGUI();
+	if (endGame == false)
+	{
+		spawnOrbs();
+		updatePlayer();
+		updateCollisions();
+		updateGUI();
+	}
 }
 
 void Game::renderGUI(sf::RenderTarget* target)
@@ -137,6 +170,9 @@ void Game::render()
 	}
 
 	renderGUI(window);
+
+	if (endGame)
+		window->draw(endGameText);
 
 	window->display();
 }
